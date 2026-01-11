@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  🛍️ <br>
+   <br>
   MegaShop
   <br>
 </h1>
@@ -26,7 +26,7 @@
 
 <br>
 
-## 🔖 About
+##  About
 
 **MegaShop** is a robust Fullstack E-commerce simulation platform. 
 
@@ -34,18 +34,18 @@ It provides a seamless shopping experience with a modern UI and a high-performan
 
 ---
 
-## ✨ Features
+##  Features
 
-* **📦 Dynamic Catalog:** Browse products with automatic pagination and fetching.
-* **🔍 Categories & Filtering:** Intuitive navigation through Technology, Sports, Furniture, and more.
-* **🛒 Global State Management:** Full shopping cart functionality (Add, Remove, Adjust Quantity) powered by **Redux Toolkit**.
-* **📝 Product Management:** "Sell your product" feature allowing users to add new items to the database.
-* **🐳 Fully Dockerized:** Zero-config setup using Docker Compose.
-* **📱 Responsive Design:** Built with **Tailwind CSS v4** for mobile-first compatibility.
+* ** Dynamic Catalog:** Browse products with automatic pagination and fetching.
+* ** Categories & Filtering:** Intuitive navigation through Technology, Sports, Furniture, and more.
+* ** Global State Management:** Full shopping cart functionality (Add, Remove, Adjust Quantity) powered by **Redux Toolkit**.
+* ** Product Management:** "Sell your product" feature allowing users to add new items to the database.
+* ** Fully Dockerized:** Zero-config setup using Docker Compose.
+* ** Responsive Design:** Built with **Tailwind CSS v4** for mobile-first compatibility.
 
 ---
 
-## 🚀 Tech Stack
+##  Tech Stack
 
 ### Frontend
 * **Core:** `React 19`, `Vite v7`
@@ -67,7 +67,7 @@ It provides a seamless shopping experience with a modern UI and a high-performan
 
 ---
 
-## 💻 Getting Started
+##  Getting Started
 
 This project is configured with Docker to ensure a quick start without local environment conflicts.
 
@@ -95,8 +95,8 @@ This project is configured with Docker to ensure a quick start without local env
     *Note: The first build might take a few moments.*
 
 4.  **Access the App:**
-    * 🖥️ **Frontend:** [http://localhost:5173/](http://localhost:5173/)
-    * ⚙️ **Backend API:** [http://localhost:3000/](http://localhost:3000/)
+    *  **Frontend:** [http://localhost:5173/](http://localhost:5173/)
+    *  **Backend API:** [http://localhost:3000/](http://localhost:3000/)
 
 5.  **Stop the Application:**
     To stop the containers:
@@ -108,7 +108,7 @@ This project is configured with Docker to ensure a quick start without local env
 
 ---
 
-## 🔌 API Endpoints
+##  API Endpoints
 
 The backend exposes a RESTful API. Below are the main resources:
 
@@ -128,7 +128,7 @@ The backend exposes a RESTful API. Below are the main resources:
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```text
 MegaShop/
