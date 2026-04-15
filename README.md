@@ -1,147 +1,260 @@
-<h1 align="center">
-  <br>
-   <br>
-  MegaShop
-  <br>
-</h1>
+# MegaShop
 
-<h4 align="center">Your one-stop shop for all things awesome.</h4>
+Plataforma de e-commerce full-stack com catálogo de produtos, filtro por categoria, carrinho global e seed automático do banco de dados.
 
-<p align="center">
-  <a href="#-about">About</a> •
-  <a href="#-features">Features</a> •
-  <a href="#-tech-stack">Tech Stack</a> •
-  <a href="#-getting-started">Getting Started</a> •
-  <a href="#-api-endpoints">API Endpoints</a>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/status-active-success.svg?style=flat-square&color=orange" alt="Status">
-  <img src="https://img.shields.io/badge/react-v19-blue?style=flat-square&logo=react" alt="React">
-  <img src="https://img.shields.io/badge/vite-v7-purple?style=flat-square&logo=vite" alt="Vite">
-  <img src="https://img.shields.io/badge/tailwind-v4-38B2AC?style=flat-square&logo=tailwind-css" alt="Tailwind">
-  <img src="https://img.shields.io/badge/docker-enabled-blue?style=flat-square&logo=docker" alt="Docker">
-  <img src="https://img.shields.io/badge/license-ISC-green?style=flat-square" alt="License">
-</p>
-
-<br>
-
-##  About
-
-**MegaShop** is a robust Fullstack E-commerce simulation platform. 
-
-It provides a seamless shopping experience with a modern UI and a high-performance backend. The project demonstrates advanced web development architectures, separating the client (SPA) and server (REST API), all orchestrated via **Docker** for a consistent development and deployment environment.
+Arquitetura separada com `frontend/` (React SPA) e `backend/` (Express REST API), orquestrados com **Docker Compose**.
 
 ---
 
-##  Features
+## Sumário
 
-* ** Dynamic Catalog:** Browse products with automatic pagination and fetching.
-* ** Categories & Filtering:** Intuitive navigation through Technology, Sports, Furniture, and more.
-* ** Global State Management:** Full shopping cart functionality (Add, Remove, Adjust Quantity) powered by **Redux Toolkit**.
-* ** Product Management:** "Sell your product" feature allowing users to add new items to the database.
-* ** Fully Dockerized:** Zero-config setup using Docker Compose.
-* ** Responsive Design:** Built with **Tailwind CSS v4** for mobile-first compatibility.
+- [Estrutura do projeto](#estrutura-do-projeto)
+- [Tecnologias](#tecnologias)
+- [Pré-requisitos](#pré-requisitos)
+- [Rodando com Docker (recomendado)](#rodando-com-docker-recomendado)
+- [Rodando sem Docker](#rodando-sem-docker)
+- [Variáveis de ambiente](#variáveis-de-ambiente)
+- [Banco de dados](#banco-de-dados)
+- [Endpoints da API](#endpoints-da-api)
+  - [Produtos](#produtos)
+  - [Carrinho](#carrinho)
+- [Funcionalidades](#funcionalidades)
 
 ---
 
-##  Tech Stack
+## Estrutura do projeto
+
+```
+MegaShop/
+├── backend/                         # API Node/Express
+│   ├── app.js                       # Express app (rotas, middlewares)
+│   ├── server.js                    # Ponto de entrada
+│   ├── config/prisma.js             # Instância do Prisma Client
+│   ├── controllers/                 # Lógica das rotas
+│   ├── services/                    # Regras de negócio
+│   ├── routes/                      # Definição das rotas
+│   └── prisma/
+│       ├── schema.prisma
+│       ├── seed.js                  # Seed de produtos iniciais
+│       └── migrations/
+│
+├── frontend/                        # React SPA
+│   └── src/
+│       ├── components/              # UI components + seções da página
+│       ├── hooks/                   # useCart, useProducts
+│       ├── pages/                   # MainPage, ProductPage, CartPage, ListProductPage
+│       ├── state/
+│       │   ├── store.js             # Redux store
+│       │   └── cart/cartSlice.js    # Cart state (Redux Toolkit)
+│       └── contexts/
+│           └── AlertContext.jsx     # Feedbacks globais
+│
+├── docker-compose.yml               # Sobe db + backend + frontend
+└── .env.example
+```
+
+---
+
+## Tecnologias
 
 ### Frontend
-* **Core:** `React 19`, `Vite v7`
-* **Routing:** `React Router DOM v7`
-* **State Management:** `Redux Toolkit`, `React Redux`
-* **Styling:** `Tailwind CSS v4`, `Heroicons`
-* **HTTP Client:** `Axios`
-* **Feedback/UI:** `React Hot Toast`
+
+| Tecnologia | Uso |
+|---|---|
+| React 19 | UI |
+| Vite 7 | Bundler |
+| React Router v7 | Roteamento |
+| Redux Toolkit | Estado global do carrinho |
+| Tailwind CSS v4 | Estilização |
+| Axios | HTTP client |
+| React Hot Toast | Notificações |
+| Heroicons | Ícones |
 
 ### Backend
-* **Runtime:** `Node.js v20`
-* **Framework:** `Express.js v5`
-* **Database:** `PostgreSQL`
-* **ORM:** `Prisma`
-* **Utilities:** `Cors`, `Dotenv`, `Nodemon`
 
-### DevOps
-* **Containerization:** `Docker`, `Docker Compose`
-
----
-
-##  Getting Started
-
-This project is configured with Docker to ensure a quick start without local environment conflicts.
-
-### Prerequisites
-
-* **Docker Desktop** (Must be running)
-* **Git**
-
-### Installation & Execution
-
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/your-username/megashop.git](https://github.com/your-username/megashop.git)
-    cd MegaShop
-    ```
-
-2.  **Environment Configuration:**
-    The project comes with a `.env.example` file. Docker Compose will automatically handle the environment variables defined in the `docker-compose.yml`, but you can create a `.env` file in the root if you wish to customize ports or credentials.
-
-3.  **Start the Application:**
-    Run the following command in the root terminal:
-    ```bash
-    docker compose up --build -d
-    ```
-    *Note: The first build might take a few moments.*
-
-4.  **Access the App:**
-    *  **Frontend:** [http://localhost:5173/](http://localhost:5173/)
-    *  **Backend API:** [http://localhost:3000/](http://localhost:3000/)
-
-5.  **Stop the Application:**
-    To stop the containers:
-    ```bash
-    docker compose down
-    ```
-
-> **Note:** The database is automatically seeded with sample products upon the first launch via the `prisma db seed` command defined in the container startup script.
+| Tecnologia | Uso |
+|---|---|
+| Node.js | Runtime |
+| Express v5 | Framework HTTP |
+| PostgreSQL | Banco de dados |
+| Prisma | ORM e migrations |
+| CORS | Política de origens |
+| dotenv | Variáveis de ambiente |
 
 ---
 
-##  API Endpoints
+## Pré-requisitos
 
-The backend exposes a RESTful API. Below are the main resources:
+**Com Docker:**
+- Docker Desktop rodando
 
-### Products
-* `GET /api/products` - Get all products (supports pagination `?page=X&limit=Y`).
-* `GET /api/products/:id` - Get a specific product by ID.
-* `GET /api/products/category/:category` - Get products filtered by category.
-* `POST /api/products/create-product` - Create a new product.
-* `DELETE /api/products/:id` - Delete a product.
-
-### Cart
-* `GET /api/cart` - Get current cart items.
-* `POST /api/cart/:id` - Add a product to the cart.
-* `PUT /api/cart/quantity/:id` - Update item quantity.
-* `DELETE /api/cart/:id` - Remove item from cart.
-* `GET /api/cart/total-price` - Get the total calculated price.
+**Sem Docker:**
+- Node.js >= 18
+- PostgreSQL rodando localmente
 
 ---
 
-##  Project Structure
+## Rodando com Docker (recomendado)
 
-```text
-MegaShop/
-├── backend/                # API Server (Node/Express/Prisma)
-│   ├── config/             # DB Configuration
-│   ├── controllers/        # Route Logic
-│   ├── prisma/             # Schema & Migrations
-│   ├── routes/             # API Routes
-│   └── services/           # Business Logic
-├── frontend/               # Client Application (React/Vite)
-│   ├── src/
-│   │   ├── components/     # UI Components
-│   │   ├── hooks/          # Custom Hooks (useCart, useProducts)
-│   │   ├── pages/          # App Pages
-│   │   └── state/          # Redux Store
-└── docker-compose.yml      # Service Orchestration
+O `docker-compose.yml` sobe **PostgreSQL + backend + frontend** juntos. O backend executa as migrations e o seed automaticamente na inicialização.
+
+```bash
+# Clone e entre na pasta
+git clone <url-do-repositorio>
+cd MegaShop
+
+# Crie o .env com as credenciais
+cp .env.example .env
+
+# Sobe tudo em background
+docker compose up --build -d
+```
+
+Após o build:
+
+| Serviço | URL |
+|---|---|
+| Frontend | http://localhost:5173 |
+| API | http://localhost:3000 |
+
+```bash
+# Parar tudo
+docker compose down
+
+# Parar e remover volumes (banco zerado)
+docker compose down -v
+```
+
+> Na primeira subida o banco é populado automaticamente com produtos de exemplo via `prisma db seed`.
+
+---
+
+## Rodando sem Docker
+
+### Backend
+
+```bash
+cd backend
+npm install
+cp .env.example .env   # preencha DATABASE_URL com seu PostgreSQL local
+
+npx prisma migrate deploy
+npx prisma db seed
+
+npm start              # ou: npm run dev (nodemon)
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+cp .env.example .env   # preencha VITE_API_URL
+
+npm run dev
+```
+
+---
+
+## Variáveis de ambiente
+
+**Raiz (`.env`)** — usado pelo Docker Compose:
+
+```env
+DB_USER=docker_user
+DB_PASSWORD=docker_password_secure
+DB_NAME=ecommerce_local
+
+PORT=3000
+NODE_ENV=development
+
+VITE_API_URL=http://localhost:3000/api
+```
+
+**`backend/.env`** — para rodar sem Docker:
+
+```env
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/ecommerce_local?schema=public"
+PORT=3000
+NODE_ENV=development
+```
+
+**`frontend/.env`** — para rodar sem Docker:
+
+```env
+VITE_API_URL=http://localhost:3000/api
+```
+
+---
+
+## Banco de dados
+
+### Modelos
+
+```
+Product  → id, title?, description?, category?, price
+Cart     → id, productId (unique), quantity
+```
+
+> O carrinho é persistido no banco de dados — não é apenas estado de sessão.
+
+### Comandos úteis
+
+```bash
+# Aplicar migrations
+npx prisma migrate deploy
+
+# Popular banco com produtos de exemplo
+node prisma/seed.js
+
+# Criar nova migration
+npx prisma migrate dev --name nome_da_migration
+```
+
+---
+
+## Endpoints da API
+
+Base: `http://localhost:3000/api`
+
+### Produtos
+
+| Método | Rota | Descrição |
+|---|---|---|
+| `GET` | `/products` | Lista produtos (suporta `?page=X&limit=Y`) |
+| `GET` | `/products/:id` | Busca produto por ID |
+| `GET` | `/products/category/:category` | Filtra por categoria |
+| `POST` | `/products/create-product` | Cria um novo produto |
+| `DELETE` | `/products/:id` | Remove um produto |
+
+**Body criar produto:**
+```json
+{
+  "title": "Notebook Pro",
+  "description": "Descrição do produto",
+  "category": "Tecnologia",
+  "price": 4999.99
+}
+```
+
+### Carrinho
+
+| Método | Rota | Descrição |
+|---|---|---|
+| `GET` | `/cart` | Lista itens do carrinho |
+| `POST` | `/cart/:id` | Adiciona produto ao carrinho |
+| `PUT` | `/cart/quantity/:id` | Atualiza quantidade do item |
+| `DELETE` | `/cart/:id` | Remove item do carrinho |
+| `GET` | `/cart/total-price` | Retorna o preço total |
+
+---
+
+## Funcionalidades
+
+- **Catálogo** com paginação automática e busca por categoria
+- **Categorias** — Tecnologia, Esportes, Móveis, e mais (via seed)
+- **Carrinho global** gerenciado com Redux Toolkit — adicionar, remover e ajustar quantidade
+- **Cadastro de produto** — formulário para adicionar novos itens ao catálogo
+- **Persistência do carrinho** — estado salvo no PostgreSQL, não apenas na sessão
+- **Seed automático** — banco populado com produtos de exemplo no primeiro `docker compose up`
+- **Responsivo** — layout mobile-first com Tailwind CSS v4
